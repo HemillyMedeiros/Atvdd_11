@@ -36,3 +36,14 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+--1.4 Adicione um procedimento INOUT:
+CREATE OR REPLACE PROCEDURE total_pedidos_cliente_inout(INOUT p_codigo_cliente INTEGER)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Lógica para calcular o total de pedidos
+    SELECT COUNT(*) INTO p_codigo_cliente
+    FROM pedidos
+    WHERE codigo_cliente = p_codigo_cliente;
+END;
+$$
