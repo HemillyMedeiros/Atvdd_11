@@ -7,7 +7,9 @@ CREATE TABLE log_restaurante (
 
 --1.2 Adicione um procedimento
 CREATE OR REPLACE PROCEDURE total_pedidos_cliente(p_codigo_cliente INTEGER)
-AS
+LANGUAGE plpgsql
+AS $$ 
+DECLARE
     total_pedidos INTEGER;
 BEGIN
     -- Lógica para calcular o total de pedidos
@@ -16,5 +18,16 @@ BEGIN
     WHERE codigo_cliente = p_codigo_cliente;
 
     RAISE NOTICE 'O cliente possui % pedidos.', total_pedidos;
+END;
+$$
+
+--1.3: Reescreva o exercício 1.2:
+CREATE OR REPLACE PROCEDURE total_pedidos_cliente(p_codigo_cliente INTEGER, OUT p_total_pedidos INTEGER);
+AS
+BEGIN
+    -- Lógica para calcular o total de pedidos
+    SELECT COUNT(*) INTO p_total_pedidos
+    FROM pedidos
+    WHERE codigo_cliente = p_codigo_cliente;
 END;
 
