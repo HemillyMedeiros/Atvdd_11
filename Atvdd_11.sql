@@ -68,4 +68,22 @@ BEGIN
 END;
 $$;
 
+--1.6 Bloco anônimo para cada procedimento:
+DO $$
+
+DECLARE
+    total_pedidos INTEGER;
+
+BEGIN
+    -- Código para executar o procedimento 1.2
+    PERFORM total_pedidos_cliente(123);
+
+    -- Código para executar o procedimento 1.3
+    CALL total_pedidos_cliente(123, total_pedidos);
+    RAISE NOTICE 'O cliente possui % pedidos.', total_pedidos;
+
+END $$;
+
+
+
 
