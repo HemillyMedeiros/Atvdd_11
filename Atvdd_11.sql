@@ -47,3 +47,25 @@ BEGIN
     WHERE codigo_cliente = p_codigo_cliente;
 END;
 $$
+
+--1.5 Adicione um procedimento com parâmentro VARIADIC
+CREATE OR REPLACE PROCEDURE cadastrar_clientes(VARIADIC nomes_clientes VARCHAR[])
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    clientes_cadastrados TEXT;
+BEGIN
+    -- Lógica para inserir na tabela de clientes
+    -- Exemplo: INSERT INTO tabela_clientes (nome) VALUES (nomes_clientes[i]);
+    
+    FOR i IN 1..array_length(nomes_clientes, 1) LOOP
+        -- Lógica de inserção aqui
+    END LOOP;
+
+    clientes_cadastrados := 'Os clientes: ' || array_to_string(nomes_clientes, ', ') || ' foram cadastrados';
+    
+    RAISE NOTICE '%', clientes_cadastrados;
+END;
+$$;
+
+
