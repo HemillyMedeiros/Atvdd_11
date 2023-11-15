@@ -22,12 +22,17 @@ END;
 $$
 
 --1.3: Reescreva o exercício 1.2:
-CREATE OR REPLACE PROCEDURE total_pedidos_cliente(p_codigo_cliente INTEGER, OUT p_total_pedidos INTEGER);
-AS
+-- Drop do procedimento existente
+DROP PROCEDURE IF EXISTS total_pedidos_cliente(integer);
+
+-- Criação do novo procedimento
+CREATE OR REPLACE PROCEDURE total_pedidos_cliente(p_codigo_cliente INTEGER, OUT p_total_pedidos INTEGER)
+AS $$ 
 BEGIN
     -- Lógica para calcular o total de pedidos
     SELECT COUNT(*) INTO p_total_pedidos
     FROM pedidos
     WHERE codigo_cliente = p_codigo_cliente;
 END;
+$$ LANGUAGE plpgsql;
 
